@@ -37,16 +37,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        btnAlready = findViewById(R.id.regAlreadyHaveAcc);
-
-        ETFullName = findViewById(R.id.regFullname);
-        ETMail = findViewById(R.id.regMail);
-        ETPass = findViewById(R.id.regPass);
-        ETPass2 = findViewById(R.id.regPass2);
-
-        btnReg = findViewById(R.id.regBtnReg);
-
-        pgBar = findViewById(R.id.progressBar);
+//        btnAlready = findViewById(R.id.regAlreadyHaveAcc);
+//
+//        ETFullName = findViewById(R.id.regFullname);
+//        ETMail = findViewById(R.id.regMail);
+//        ETPass = findViewById(R.id.regPass);
+//        ETPass2 = findViewById(R.id.regPass2);
+//
+//        btnReg = findViewById(R.id.regBtnReg);
+//
+//        pgBar = findViewById(R.id.progressBar);
 
         SetOnClickListener();
     }

@@ -1,5 +1,8 @@
 package com.example.catchme.Class;
-import com.example.catchme.Class;
+
+import com.example.catchme.User;
+
+import java.util.List;
 
 public class Group{
     private Integer id;
