@@ -1,15 +1,24 @@
 package com.example.catchme.Class;
 
 public class Achievement{
-    private Integer id;
+    private String id;
     private String name;
     private String description;
     //private String pircture;
     private Integer length, time, pace, speed;
     private String location;
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
+    private boolean isFinished = false;
     //getter
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,7 +53,7 @@ public class Achievement{
 
     //setter
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,7 +85,7 @@ public class Achievement{
         this.location = location;
     }
 
-    public Achievement(Integer id, String name, String dis, Integer length, Integer pace, Integer speed, Integer time, String location){
+    public Achievement(String id, String name, String dis, Integer length, Integer pace, Integer speed, Integer time, String location){
         this.id=id;
         this.name=name;
         this.description=dis;
