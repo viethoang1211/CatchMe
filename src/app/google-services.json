@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "162034705212",
-    "project_id": "catchme-e50cc",
-    "storage_bucket": "catchme-e50cc.appspot.com"
+    "project_number": "1002695156193",
+    "project_id": "catchme-5e583",
+    "storage_bucket": "catchme-5e583.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:162034705212:android:039039bccb7547ce80f439",
+        "mobilesdk_app_id": "1:1002695156193:android:d776459eead7e290a3f2a0",
         "android_client_info": {
           "package_name": "com.example.catchme"
         }
       },
       "oauth_client": [
         {
-          "client_id": "162034705212-sgvctkk3fj3uopagiquudtionnus817o.apps.googleusercontent.com",
+          "client_id": "1002695156193-rcuagbrdm76posmfr5ophtbi0stphnr7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqAs4vUpcOIbc7LZTt1cKyhpKaiASeSJw"
+          "current_key": "AIzaSyD5_Oxs_1ryWVdWSdb7Rfy1Hnxf-4somC0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "162034705212-sgvctkk3fj3uopagiquudtionnus817o.apps.googleusercontent.com",
+              "client_id": "1002695156193-rcuagbrdm76posmfr5ophtbi0stphnr7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

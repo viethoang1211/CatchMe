@@ -63,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
         pgBar = findViewById(R.id.loginProgressBar);
 
+
+        
         SetOnClickListener();
     }
 
