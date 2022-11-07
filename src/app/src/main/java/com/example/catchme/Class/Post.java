@@ -1,5 +1,4 @@
 package com.example.catchme.Class;
-import com.example.catchme.User;
 
 import java.time.LocalDate;
 import java.util.List;

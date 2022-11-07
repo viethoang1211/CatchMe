@@ -1,4 +1,4 @@
-package com.example.catchme;
+package com.example.catchme.Class;
 
 
 import java.time.LocalDate;

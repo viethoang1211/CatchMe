@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.catchme.Class.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,16 +38,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-//        btnAlready = findViewById(R.id.regAlreadyHaveAcc);
-//
-//        ETFullName = findViewById(R.id.regFullname);
-//        ETMail = findViewById(R.id.regMail);
-//        ETPass = findViewById(R.id.regPass);
-//        ETPass2 = findViewById(R.id.regPass2);
-//
-//        btnReg = findViewById(R.id.regBtnReg);
-//
-//        pgBar = findViewById(R.id.progressBar);
+        btnAlready = findViewById(R.id.regAlreadyHaveAcc);
+
+        ETFullName = findViewById(R.id.regFullname);
+        ETMail = findViewById(R.id.regMail);
+        ETPass = findViewById(R.id.regPass);
+        ETPass2 = findViewById(R.id.regPass2);
+
+        btnReg = findViewById(R.id.regBtnReg);
+
+        pgBar = findViewById(R.id.progressBar);
 
         SetOnClickListener();
     }
