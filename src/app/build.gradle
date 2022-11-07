@@ -32,8 +32,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:23.4.0'
-    implementation 'com.firebaseui:firebase-ui:8.0.0'
+//    implementation 'com.android.support:design:23.4.0'
+//    implementation 'com.firebaseui:firebase-ui:8.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
