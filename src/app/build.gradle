@@ -4,15 +4,19 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    namespace 'com.example.chatapp'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.catchme"
-        minSdk 25
-        targetSdk 32
+        applicationId "com.example.chatapp"
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
+        //multidex
+        multiDexEnabled true
 
+        //
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,26 +30,41 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    /* enable view binding
+    view binding is a feature that allows you to more easily write code that interacts with views. Once
+    view binding is enabled in a module, it generates a binding class for each XML layout file present in that
+    module. An instance of a binding class contains direct references to all views that have an ID in the corresponding layout
+     */
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
-//    implementation 'com.android.support:design:23.4.0'
-//    implementation 'com.firebaseui:firebase-ui:8.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment:2.5.0'
-    implementation 'androidx.navigation:navigation-ui:2.5.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.7'
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
-    implementation 'com.google.firebase:firebase-database:20.0.5'
-    implementation 'com.google.android.gms:play-services-tasks:18.0.2'
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
+
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    // Scalable size unit
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    // Rounded image view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-inappmessaging-display:20.2.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.1'
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+
+    //multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
 }
