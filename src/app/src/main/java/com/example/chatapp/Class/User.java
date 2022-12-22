@@ -1,4 +1,4 @@
-package com.example.chatapp.models;
+package com.example.chatapp.Class;
 
 public class User {
     public String email;

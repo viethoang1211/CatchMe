@@ -5,14 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.databinding.ItemContainerUserBinding;
-import com.example.chatapp.models.User;
+import com.example.chatapp.Class.User;
 
 import java.util.List;
 
