@@ -67,4 +67,7 @@ dependencies {
     //multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    // GPS
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
 }
