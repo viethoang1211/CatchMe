@@ -5,17 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Binder;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.Toast;
 
-import com.example.chatapp.R;
 import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -38,7 +35,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
+
         binding.imageSignOut.setOnClickListener(v->signOut());
+        binding.fabNewChat.setOnClickListener(v-> startActivity(
+                new Intent(getApplicationContext(),UsersActivity.class)
+        ));
+
     }
 
     private void loadUserDetails(){
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_USERS).document(preferenceManager.getString(Constants.KEY_USER_ID));
         documentReference.update(Constants.KEY_FCM_TOKEN,token)
-                .addOnSuccessListener(unused -> showToast("Token updated successfully"))
+//                .addOnSuccessListener(unused -> showToast("Token updated successfully"))
                 .addOnFailureListener(e->showToast("Unable to update token"));
     }
 

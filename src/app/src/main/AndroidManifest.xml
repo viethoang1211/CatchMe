@@ -17,15 +17,17 @@
         android:theme="@style/Theme.ChatApp"
         tools:targetApi="31">
         <activity
-            android:name=".UsersActivity"
-            android:exported="false">
+            android:name=".activities.UsersActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
 
+
+
         <service
-            android:name=".TrackingService"
+            android:name=".Service.TrackingService"
             android:enabled="true"
             android:exported="true" />
 
