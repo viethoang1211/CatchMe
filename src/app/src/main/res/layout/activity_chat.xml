@@ -17,7 +17,16 @@
         app:layout_constraintBottom_toTopOf="@id/layoutSend"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/viewSupporter"
+        app:layout_constraintTop_toTopOf="parent"
 
+        />
+    
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageBack"
         android:layout_width="@dimen/_30sdp"
@@ -28,6 +37,7 @@
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white"
         />
 
     <androidx.constraintlayout.utils.widget.ImageFilterButton
@@ -40,8 +50,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="@dimen/_4sdp"
         android:src="@drawable/ic_info"
-        android:background="@color/white"
-        />
+        android:tint="@color/white"
+        android:background="@color/primary"/>
 
     <TextView
         android:id="@+id/textName"
@@ -58,7 +68,15 @@
         android:textStyle="bold"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/white"
+        />
+
+    <View
+        android:id="@+id/viewSupporter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@id/imageBack"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -71,7 +89,7 @@
         android:padding="@dimen/_20sdp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-        app:layout_constraintTop_toBottomOf="@id/imageBack"
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
