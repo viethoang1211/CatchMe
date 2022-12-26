@@ -7,6 +7,6 @@ public class User implements Serializable {
     public String image;
     public String name;
     public String token;
-
+    public String id;
 
 }

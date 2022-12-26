@@ -16,7 +16,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.util.Base64;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -51,6 +55,16 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    private void sendMessage(){
+        HashMap<String,Object> message = new HashMap<>();
+        message.put(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID));
+        message.put(Constants.KEY_RECEIVER_ID,receiverUser.id);
+        message.put(Constants.KEY_MESSAGE,binding.inputMessage.getText().toString());
+        message.put(Constants.KEY_TIME_STAMP,new Date());
+        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        binding.inputMessage.setText(null);
+    }
+
     private Bitmap getBitmapFromEncodedString(String encodedImage){
         byte[] bytes= Base64.decode(encodedImage,Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
@@ -64,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setListeners(){
         binding.imageBack.setOnClickListener(v-> onBackPressed());
+        binding.layoutSend.setOnClickListener(v->sendMessage());
     }
 
 }
