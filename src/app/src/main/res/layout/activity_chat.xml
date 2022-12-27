@@ -8,6 +8,7 @@
     android:background="@color/primary"
     tools:context=".activities.ChatActivity">
 
+
     <View
         android:id="@+id/viewBackground"
         android:layout_width="match_parent"
