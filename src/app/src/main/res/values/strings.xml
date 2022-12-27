@@ -12,4 +12,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="select_user">Select User</string>
     <string name="type_a_message">Type a message</string>
+    <string name="title_activity_tracking_on_map">Tracking_on_MapActivity</string>
+    <string name="title_activity_tracking2">Tracking2Activity</string>
 </resources>
