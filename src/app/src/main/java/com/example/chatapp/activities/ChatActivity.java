@@ -2,6 +2,7 @@ package com.example.chatapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,16 +13,20 @@ import com.example.chatapp.adapters.ChatAdapter;
 import com.example.chatapp.databinding.ActivityChatBinding;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.util.Base64;
 
 import org.checkerframework.checker.units.qual.C;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -65,6 +70,10 @@ public class ChatActivity extends AppCompatActivity {
         binding.inputMessage.setText(null);
     }
 
+    private final EventListener<QuerySnapshot> eventListener= (value, error) -> {
+
+    };
+
     private Bitmap getBitmapFromEncodedString(String encodedImage){
         byte[] bytes= Base64.decode(encodedImage,Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
@@ -80,5 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         binding.imageBack.setOnClickListener(v-> onBackPressed());
         binding.layoutSend.setOnClickListener(v->sendMessage());
     }
-
+    private String getReadableDateTime(Date date){
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+    }
 }
