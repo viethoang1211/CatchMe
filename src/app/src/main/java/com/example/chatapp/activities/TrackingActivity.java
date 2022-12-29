@@ -25,8 +25,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.chatapp.databinding.ActivityTrackingBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
-    Button btnStart, btnStop;
+    Button  btnStop;
+    FloatingActionButton btnStart;
     TextView distance;
     TrackingHolder trackingHolder;
     private GoogleMap mMap;

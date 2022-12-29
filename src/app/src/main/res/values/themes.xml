@@ -2,10 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.ChatApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/accent</item>
+        <item name="colorPrimary">@color/button_background</item>
+        <item name="colorOnPrimary">@color/text_icon</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondary">@color/primary_light</item>
         <item name="colorOnSecondary">@color/text_icon</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primary</item>
@@ -40,5 +40,9 @@
     <item name="android:textColor">@color/text_icon</item>
     <item name="android:textSize">12dp</item>
     <item name="fontFamily">@font/josefinsans_light</item>
+    </style>
+    <style name="icon_button">
+        <item name="cornerRadius">15dp</item>
+        <item name="android:drawableRight">@drawable/globe2</item>
     </style>
 </resources>
