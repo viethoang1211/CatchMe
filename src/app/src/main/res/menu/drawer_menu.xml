@@ -11,5 +11,9 @@
     <item
         android:id="@+id/drawer3"
         android:icon="@drawable/settings_s_light"
-        android:title="Setting"/>
+        android:title="Settings"/>
+    <item
+        android:id="@+id/drawer4"
+        android:icon="@drawable/log_out"
+        android:title="Sign Out"/>
 </menu>
