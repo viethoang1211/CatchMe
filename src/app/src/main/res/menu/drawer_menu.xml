@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/drawer1"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
+    <item
+        android:id="@+id/drawer2"
+        android:icon="@drawable/feedback"
+        android:title="Feedback"/>
+    <item
+        android:id="@+id/drawer3"
+        android:icon="@drawable/settings_s_light"
+        android:title="Setting"/>
+</menu>
