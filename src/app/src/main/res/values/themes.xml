@@ -13,33 +13,43 @@
     </style>
     <style name="purple_regular">
         <item name="android:textColor">@color/accent</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/josefinsans_regular</item>
     </style>
     <style name="purple_bold">
         <item name="android:textColor">@color/accent</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/josefinsans_bold</item>
     </style>
     <style name="purple_thin">
         <item name="android:textColor">@color/accent</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/josefinsans_light</item>
+    </style>
+    <style name="purple_medium">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/josefinsans_medium</item>
     </style>
     <style name="white_regular">
         <item name="android:textColor">@color/text_icon</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/josefinsans_regular</item>
     </style>
     <style name="white_bold">
     <item name="android:textColor">@color/text_icon</item>
-    <item name="android:textSize">12dp</item>
+    <item name="android:textSize">14sp</item>
     <item name="fontFamily">@font/josefinsans_bold</item>
     </style>
     <style name="white_thin">
     <item name="android:textColor">@color/text_icon</item>
-    <item name="android:textSize">12dp</item>
+    <item name="android:textSize">14sp</item>
     <item name="fontFamily">@font/josefinsans_light</item>
+    </style>
+    <style name="white_medium">
+        <item name="android:textColor">@color/text_icon</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/josefinsans_medium</item>
     </style>
     <style name="icon_button">
         <item name="cornerRadius">15dp</item>
