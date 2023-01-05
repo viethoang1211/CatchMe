@@ -74,13 +74,15 @@ public class home extends Fragment {
         @Override
         public Fragment createFragment(int position) {
             switch (position) {
+                case 0:
+                    return new home_community();
                 case 1:
                     return new home_group();
                 case 2:
                     return new home_friend();
-                default:
-                    return new home_community();
             }
+            return new home_community();
+
         }
 
         @Override
