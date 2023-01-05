@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
         app:cardCornerRadius="20dp"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -73,14 +73,14 @@ public class home extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-//            switch (position) {
-//                case 0:
-//                    return new profile(); // calls fragment
-//                case 1:
-//                    return new home(); // chats fragment
-//            }
-//            return new profile();
-           return null;
+            switch (position) {
+                case 1:
+                    return new home_group();
+                case 2:
+                    return new home_friend();
+                default:
+                    return new home_community();
+            }
         }
 
         @Override
