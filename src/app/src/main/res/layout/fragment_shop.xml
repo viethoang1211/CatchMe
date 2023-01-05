@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".shop">
     <include
         android:id="@+id/bar"
         layout="@layout/shop_toolbar"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="shoop" />
+        android:id="@+id/choose_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Tag"
+        app:layout_constraintTop_toBottomOf="@id/bar"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/digital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digital"
+        android:layout_margin="5dp"
+        app:icon="@drawable/digital"
+        app:iconGravity="textStart"
+        app:layout_constraintTop_toBottomOf="@+id/choose_tag"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/physical"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/physical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Physical"
+        android:layout_margin="5dp"
+        app:icon="@drawable/physical"
+        app:iconGravity="textStart"
+        app:layout_constraintTop_toBottomOf="@+id/choose_tag"
 
-</FrameLayout>
+        app:layout_constraintLeft_toRightOf="@+id/digital"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/digital"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/recycler_shop_row"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
