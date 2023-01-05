@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primary_dark"
     tools:context=".challenge">
 
     <include
@@ -14,74 +15,96 @@
         android:id="@+id/search_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/black"
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/search"
         app:layout_constraintTop_toBottomOf="@+id/bar"
         app:layout_constraintBottom_toBottomOf="@+id/search_bar"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/bar"
+        android:hint="Search..."
+        android:textColorHint="#03A9F4"
         app:layout_constraintLeft_toRightOf="@+id/search_icon"
         app:layout_constraintRight_toRightOf="parent"
-        android:hint="Search"/>
+        app:layout_constraintTop_toBottomOf="@+id/bar" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_challenge"
+        style="@style/icon_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create an Challenge"
-        app:icon="@drawable/ic_add"
+        app:icon="@drawable/plus_circle"
         app:iconGravity="textEnd"
-        app:layout_constraintTop_toBottomOf="@id/search_bar"
+
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:layout_constraintTop_toBottomOf="@+id/create_challenge">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/text_ongoing"
+                style="@style/white_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="On Going Challenges" />
+                android:paddingStart="15dp"
+                android:text="On Going Challenges"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ongoing_challenges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
+                android:paddingStart="5dp"
                 tools:listitem="@layout/recycler_challenge_row"/>
+
             <TextView
                 android:id="@+id/text_upcoming"
+                style="@style/white_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Up Coming Challenges" />
+                android:paddingStart="5dp"
+                android:text="Up Coming Challenges"
+                android:paddingTop="15dp"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcoming_challenges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
-                tools:listitem="@layout/recycler_challenge_row"/>
+                tools:listitem="@layout/recycler_challenge_row"
+                android:paddingStart="5dp"/>
+
             <TextView
                 android:id="@+id/text_ended"
+                style="@style/white_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="On Going Challenges" />
+                android:paddingStart="5dp"
+                android:paddingTop="15dp"
+                android:text="Ended Challenges"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ended_challenges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
-                tools:listitem="@layout/recycler_challenge_row"/>
+                tools:listitem="@layout/recycler_challenge_row"
+                android:paddingStart="5dp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

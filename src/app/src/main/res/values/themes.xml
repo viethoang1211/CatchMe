@@ -10,6 +10,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primary</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/josefinsans_regular</item>
     </style>
     <style name="purple_regular">
         <item name="android:textColor">@color/accent</item>

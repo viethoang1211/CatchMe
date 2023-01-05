@@ -18,13 +18,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Title"/>
+            android:text="Title"
+            android:textSize="16sp"
+            style="@style/white_bold"/>
         <TextView
             android:id="@+id/coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="10000"
-            android:drawableStart="@drawable/catchcoin"/>
+            android:text="100000"
+            android:drawableStart="@drawable/catchcoin"
+            android:textSize="16sp"
+            style="@style/white_bold"
+            android:drawablePadding="10dp"/>
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>
