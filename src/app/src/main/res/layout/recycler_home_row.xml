@@ -6,11 +6,16 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
         app:cardCornerRadius="20dp"
         android:layout_margin="5dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +65,7 @@
 
             <TextView
                 android:id="@+id/post_des"
-                style="@style/purple_bold"
+                style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -83,7 +88,7 @@
 
             <TextView
                 android:id="@+id/post_duration"
-                style="@style/purple_regular"
+                style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -94,7 +99,7 @@
 
             <TextView
                 android:id="@+id/post_pace"
-                style="@style/purple_regular"
+                style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -115,7 +120,7 @@
 
             <TextView
                 android:id="@+id/post_distance"
-                style="@style/purple_regular"
+                style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
