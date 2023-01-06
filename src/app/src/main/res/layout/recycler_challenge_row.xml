@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-
                 android:text="GreenRace2022"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"

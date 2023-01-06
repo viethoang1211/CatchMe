@@ -29,14 +29,12 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#272244"
             android:backgroundTintMode="screen"
-            android:paddingBottom="5dp">
+            android:padding="5dp">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageProfile"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:background="@drawable/background_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_image"
@@ -49,8 +47,7 @@
                 style="@style/purple_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+
                 android:text="TextView"
                 app:layout_constraintStart_toEndOf="@+id/imageProfile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +57,6 @@
                 style="@style/white_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:text="TextView"
                 app:layout_constraintStart_toEndOf="@+id/imageProfile"
@@ -71,8 +67,6 @@
                 style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,9 +77,8 @@
                 style="@style/white_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Ran in the stadium in Qatar after winning World Cup 2022 and after that"
+                android:maxLines="3"
+                android:text="Ran in the stadium in Qatar after winning World Cup 2022 and after that I go foot ball lmao this is just for testing UI not kill me you are being super eager, fond of entering a PvP tournament with mr.TA"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_des" />
 
@@ -94,9 +87,7 @@
                 style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
+                android:text="Duration"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_post_des" />
 
@@ -105,17 +96,16 @@
                 style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="Pace"
+                app:layout_constraintEnd_toEndOf="@id/post_distance"
+                app:layout_constraintStart_toStartOf="@id/user_post_duration"
                 app:layout_constraintTop_toTopOf="@+id/post_duration" />
 
             <TextView
-                android:id="@+id/user_post_time"
+                android:id="@+id/user_post_duration"
                 style="@style/white_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,8 +116,8 @@
                 style="@style/purple_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:text="TextView"
+                android:layout_marginEnd="24dp"
+                android:text="Distance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/post_duration" />
 
@@ -150,6 +140,33 @@
                 android:text="TextView"
                 app:layout_constraintStart_toStartOf="@+id/post_distance"
                 app:layout_constraintTop_toBottomOf="@+id/post_distance" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/white_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" minutes"
+                app:layout_constraintStart_toEndOf="@+id/user_post_duration"
+                app:layout_constraintTop_toTopOf="@+id/user_post_duration" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/white_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/km"
+                app:layout_constraintStart_toEndOf="@+id/user_post_pace"
+                app:layout_constraintTop_toTopOf="@+id/user_post_pace" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/white_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" km"
+                app:layout_constraintStart_toEndOf="@+id/user_post_distance"
+                app:layout_constraintTop_toTopOf="@id/user_post_distance" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
