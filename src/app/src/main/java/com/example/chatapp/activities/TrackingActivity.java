@@ -28,12 +28,12 @@ import com.example.chatapp.databinding.ActivityTrackingBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
-    Button  btnStop;
     FloatingActionButton btnStart;
     TextView distance;
     TrackingHolder trackingHolder;
     private GoogleMap mMap;
     private ActivityTrackingBinding binding;
+    boolean isResume;
 
     private final static int REQUEST_CODE = 100;
     @Override
@@ -47,25 +47,34 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
         btnStart = findViewById(R.id.btnStart);
-        btnStop = findViewById(R.id.btnStop);
-        distance = findViewById(R.id.Distance);
+        distance = findViewById(R.id.user_tracking_dis);
 
         askPermission();
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startService(new Intent(TrackingActivity.this, TrackingService.class));
+                if(!isResume){
+                    isResume= true;
+                    btnStart.setImageDrawable(getDrawable(R.drawable.pause));
+//                    startService(new Intent(TrackingActivity.this, TrackingService.class));
+                }
+                else{
+                    isResume= false;
+                    btnStart.setImageDrawable(getDrawable(R.drawable.play));
+//                    trackingHolder = TrackingHolder.getInstance();
+//                    distance.setText(trackingHolder.tracking.getID());
+                }
             }
         });
 
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                trackingHolder = TrackingHolder.getInstance();
-                distance.setText(trackingHolder.tracking.getID());
-            }
-        });
+//        btnStop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                trackingHolder = TrackingHolder.getInstance();
+//                distance.setText(trackingHolder.tracking.getID());
+//            }
+//        });
     }
 
     public boolean foregroundServiceRunning(){

@@ -25,34 +25,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"
-        app:layout_constraintVertical_bias="0.0">
-
-        <Button
-            android:id="@+id/btnStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/secondary_text"
-            android:text="Stop"
-            app:cornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnStart"
-            app:layout_constraintTop_toBottomOf="@+id/CurrentPace" />
-
-        <TextView
-            android:id="@+id/Distance"
-            style="@style/white_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="3.9"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Position" />
+        app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnStart"
@@ -60,70 +36,103 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:src="@drawable/play"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CurrentPace" />
+            app:layout_constraintEnd_toEndOf="@id/user_tracking_dur"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="@id/user_tracking_dur" />
 
         <TextView
-            android:id="@+id/Duration"
+            android:id="@+id/user_tracking_dur"
             style="@style/purple_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="15:30"
             android:textSize="40sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Distance" />
+            app:layout_constraintEnd_toEndOf="@+id/user_tracking_pos"
+            app:layout_constraintStart_toStartOf="@+id/user_tracking_pos"
+            app:layout_constraintTop_toBottomOf="@+id/user_tracking_pos" />
 
         <TextView
-            android:id="@+id/CurrentPace"
-            style="@style/white_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="6.1"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Duration" />
-
-        <TextView
-            android:id="@+id/Position"
+            android:id="@+id/user_tracking_pos"
             style="@style/white_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="King Street"
-            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="King Street TPHCM Distreet 10"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/km"
+            android:id="@+id/tracking_pace"
             style="@style/white_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="km"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/Distance"
-            app:layout_constraintTop_toTopOf="@+id/Distance" />
+            android:text="Current Pace:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tracking_dis"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tracking_dis" />
 
         <TextView
-            android:id="@+id/kmPace"
+            android:id="@+id/tracking_dis"
             style="@style/white_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/km"
-            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Distance:"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/CurrentPace"
-            app:layout_constraintTop_toTopOf="@+id/CurrentPace" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tracking_pace"
+            app:layout_constraintTop_toBottomOf="@+id/user_tracking_dur" />
+
+        <TextView
+            android:id="@+id/user_tracking_pace"
+            style="@style/purple_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="6.15"
+            android:textSize="20sp"
+
+            app:layout_constraintStart_toStartOf="@+id/tracking_pace"
+            app:layout_constraintTop_toBottomOf="@+id/tracking_pace" />
+
+        <TextView
+            android:id="@+id/user_tracking_dis"
+            style="@style/purple_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="3.5"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/tracking_dis"
+            app:layout_constraintTop_toBottomOf="@+id/tracking_dis" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" /km"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/user_tracking_pace"
+            app:layout_constraintTop_toTopOf="@+id/user_tracking_pace" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" km"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/user_tracking_dis"
+            app:layout_constraintTop_toTopOf="@+id/user_tracking_dis" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
