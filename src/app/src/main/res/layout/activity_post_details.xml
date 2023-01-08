@@ -7,12 +7,11 @@
     android:background="@color/primary_dark"
     tools:context=".activities.PostDetails">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:background="@drawable/background_circle"
+        android:background="@drawable/background_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,38 +20,38 @@
         app:layout_constraintVertical_bias="0.15">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/post_details_com"
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/post_details_like"
+            app:layout_constraintTop_toTopOf="@+id/post_details_like"
             app:srcCompat="@drawable/chat_normal" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/post_details_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintEnd_toEndOf="@+id/user_post_details_dis"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintStart_toStartOf="@+id/user_post_details_dis"
+            app:layout_constraintTop_toBottomOf="@+id/user_post_details_dis"
             app:layout_constraintVertical_bias="0.15"
             app:srcCompat="@drawable/smile_face" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/post_details_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="3dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/post_details_like"
+            app:layout_constraintTop_toTopOf="@+id/post_details_like"
             app:srcCompat="@drawable/share" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/user_post_details_dis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3.40"
@@ -61,18 +60,57 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.4"/>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/post_details_dis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Distance"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
-            app:layout_constraintEnd_toEndOf="@+id/textView7"
-            app:layout_constraintStart_toStartOf="@+id/textView7" />
+            app:layout_constraintBottom_toTopOf="@+id/user_post_details_dis"
+            app:layout_constraintEnd_toEndOf="@+id/user_post_details_dis"
+            app:layout_constraintStart_toStartOf="@+id/user_post_details_dis" />
+
+        <TextView
+            android:id="@+id/post_details_com_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:text="12"
+            app:layout_constraintEnd_toStartOf="@+id/post_details_like_cnt"
+            app:layout_constraintTop_toTopOf="@+id/post_details_like_cnt" />
+
+        <TextView
+            android:id="@+id/post_details_like_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="12"
+            app:layout_constraintEnd_toEndOf="@+id/post_details_like"
+            app:layout_constraintStart_toStartOf="@+id/post_details_like"
+            app:layout_constraintTop_toBottomOf="@+id/post_details_like" />
+
+        <TextView
+            android:id="@+id/post_details_share_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="12"
+            app:layout_constraintStart_toEndOf="@+id/post_details_like_cnt"
+            app:layout_constraintTop_toTopOf="@+id/post_details_like_cnt" />
+
+        <TextView
+            android:id="@+id/post_details_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Km"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_post_details_dis"
+            app:layout_constraintStart_toEndOf="@+id/user_post_details_dis"
+            app:layout_constraintTop_toTopOf="@+id/user_post_details_dis" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -84,4 +122,134 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/post_details_dur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Duration"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/post_details_cal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <TextView
+        android:id="@+id/post_details_cal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Calories"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/post_details_dur"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <TextView
+        android:id="@+id/user_post_details_dur"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="00:19:48"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_dur"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_dur" />
+
+    <TextView
+        android:id="@+id/user_post_details_cal"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="745"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_cal"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_cal" />
+
+    <TextView
+        android:id="@+id/post_details_pace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Avg.Pace"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_dur"
+        app:layout_constraintTop_toBottomOf="@+id/user_post_details_dur" />
+
+    <TextView
+        android:id="@+id/post_details_hr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Avg.Heart Rate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_cal"
+        app:layout_constraintTop_toBottomOf="@+id/user_post_details_cal" />
+
+    <TextView
+        android:id="@+id/user_post_details_pace"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="6.01"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_pace"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_pace" />
+
+    <TextView
+        android:id="@+id/user_post_details_hr"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="123"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/post_details_hr"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_hr" />
+
+    <ImageView
+        android:id="@+id/post_details_map"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/test_image" />
+
+    <TextView
+        android:id="@+id/post_details_kcal"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="kcal"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/user_post_details_cal"
+        app:layout_constraintTop_toTopOf="@+id/user_post_details_cal" />
+
+    <TextView
+        android:id="@+id/post_details_pkm"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="/km"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/user_post_details_pace"
+        app:layout_constraintTop_toTopOf="@+id/user_post_details_pace" />
+
+    <TextView
+        android:id="@+id/post_details_bpm"
+        style="@style/white_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="bpm"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/user_post_details_hr"
+        app:layout_constraintTop_toTopOf="@+id/user_post_details_hr" />
 </androidx.constraintlayout.widget.ConstraintLayout>
