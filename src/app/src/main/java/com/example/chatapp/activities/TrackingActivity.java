@@ -6,15 +6,24 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chatapp.Class.Route;
 import com.example.chatapp.R;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.example.chatapp.Service.RecordBroadcast;
+import com.example.chatapp.Service.RecordService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,11 +34,14 @@ import com.example.chatapp.databinding.ActivityTrackingBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
-    FloatingActionButton btnStart;
-    TextView distance;
     private GoogleMap mMap;
     private ActivityTrackingBinding binding;
-    boolean isResume;
+    private Intent intent;
+    private IntentFilter intentFilter;
+    private RecordBroadcast broadcast;
+    private MediatorLiveData<Route> route = new MediatorLiveData<>();
+    private MediatorLiveData<String> uid = new MediatorLiveData<>();
+    private MediatorLiveData<String> info = new MediatorLiveData<>();
 
     private final static int REQUEST_CODE = 100;
     @Override
@@ -42,71 +54,53 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        btnStart = findViewById(R.id.btnStart);
-        distance = findViewById(R.id.user_tracking_dis);
+        uid.setValue("RANDOM");
 
-        askPermission();
+        intent = new Intent(this, RecordService.class);
+        intent.putExtra("uid", uid.getValue());
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(getString(R.string.intent_action));
+        broadcast = new RecordBroadcast();
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isResume){
-                    isResume= true;
-                    btnStart.setImageDrawable(getDrawable(R.drawable.pause));
-//                    startService(new Intent(TrackingActivity.this, TrackingService.class));
-                }
-                else{
-                    isResume= false;
-                    btnStart.setImageDrawable(getDrawable(R.drawable.play));
-//                    trackingHolder = TrackingHolder.getInstance();
-//                    distance.setText(trackingHolder.tracking.getID());
-                }
-            }
+        binding = ActivityTrackingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        this.uid.addSource(broadcast.getUid(), newUid -> {
+            this.uid.setValue(newUid);
         });
 
-//        btnStop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                trackingHolder = TrackingHolder.getInstance();
-//                distance.setText(trackingHolder.tracking.getID());
-//            }
-//        });
-    }
+        this.route.addSource(broadcast.getRoute(), newRoute -> {
+            this.route.setValue(newRoute);
+        });
 
-    public boolean foregroundServiceRunning(){
-
-        return false;
-    }
-    private void askPermission() {
-
-        ActivityCompat.requestPermissions(TrackingActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
-
-
+        this.info.addSource(broadcast.getRoute(), new Observer<Route>() {
+            @Override
+            public void onChanged(Route route) {
+                binding.userTrackingDis.setText(String.valueOf(route.calculateDistance()));
+                binding.userTrackingPace.setText(String.valueOf(route.calculatePace()));
+                binding.userTrackingDur.setText(String.valueOf(route.getTotalTime()));
+            }
+        });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @org.jetbrains.annotations.NotNull String[] permissions, @NonNull @org.jetbrains.annotations.NotNull int[] grantResults) {
-
-        if (requestCode == REQUEST_CODE){
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-
-
-
-            }else {
-
-
-                Toast.makeText(TrackingActivity.this,"Please provide the required permission",Toast.LENGTH_SHORT).show();
-
-            }
-
-
-
-        }
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    protected void onStart() {
+        startService(intent);
+        registerReceiver(broadcast, intentFilter);
+        super.onStart();
     }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(broadcast);
+        super.onStop();
+    }
+
+    public void stopRecordActivity(View view) {
+        stopService(intent);
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
