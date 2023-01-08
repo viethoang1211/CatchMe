@@ -58,11 +58,6 @@
                 android:value="" />
         </activity>
 
-        <service
-            android:name=".Service.TrackingService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity
             android:name=".activities.TrackingActivity"
             android:exported="true">
