@@ -16,7 +16,7 @@
     <string name="title_activity_tracking2">Tracking2Activity</string>
 
     <string name="intent_action">com.example.chatapp.SEND_ROUTE</string>
-    <string name="CatchMe_is_working" >"CatchMe is working"</string>
+    <string name="CatchMe_is_working">"CatchMe is working"</string>
     <string name="your_location_is_being_recorded">"Your location is being recorded for activity tracking"</string>
 
 </resources>
