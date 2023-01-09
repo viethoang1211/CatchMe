@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +22,6 @@ import com.example.chatapp.R;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.example.chatapp.Service.RecordBroadcast;
 import com.example.chatapp.Service.RecordService;
@@ -31,13 +30,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.chatapp.databinding.ActivityTrackingBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final String TAG = RecordService.class.getSimpleName();
     private GoogleMap mMap;
     private ActivityTrackingBinding binding;
     private Intent intent;
@@ -50,7 +50,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     CountDownTimer countDownTimer;
     TrackingHolder trackingHolder;
 
-    TextView dis, pace, dir;
+    TextView dis, pace, duration;
+    LatLng lastPos;
 
     private final static int REQUEST_CODE = 100;
     @Override
@@ -77,9 +78,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 //        setContentView(binding.getRoot());
 
         dis = findViewById(R.id.user_tracking_dis);
-        dir = findViewById(R.id.user_tracking_dur);
+        duration = findViewById(R.id.user_tracking_dur);
         pace = findViewById(R.id.user_tracking_pace);
-        dis.setText("????");
 
 //        dis.setText(String.valueOf(broadcast.getRoute().getValue().calculateDistance()));
 //        dir.setText(String.valueOf(broadcast.getRoute().getValue().calculatePace()));
@@ -111,7 +111,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
         askPermission();
 
-        countDownTimer = new CountDownTimer(3000, 1000) {
+        countDownTimer = new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -119,16 +119,40 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
             @Override
             public void onFinish() {
-                dis.setText(String.valueOf(trackingHolder.route.calculateDistance()));
-                //dir.setText(String.valueOf(trackingHolder.route.calculatePace()));
-                pace.setText(String.valueOf(trackingHolder.route.getTotalTime()));
-                ArrayList<LatLng> tmp = trackingHolder.route.getListLatLng();
-                LatLng cur = tmp.get(tmp.size()-1);
-                mMap.addMarker(new MarkerOptions().position(cur).title("?"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
+                updateUI();
                 countDownTimer.start();
             }
         }.start();
+    }
+    String toTimeForm(int u){ // second
+        String time = String.valueOf(u/3600);
+        u%=3600;
+        String min = String.valueOf(u/60);
+        u%=60;
+        String sec = String.valueOf(u);
+        while (min.length()<2) min = '0' + min;
+        while (sec.length()<2) sec = '0' + sec;
+        if (time.charAt(0) == '0')
+            return min + " : " + sec;
+        return  time + " : " + min + " : " + sec;
+    }
+
+    void updateUI(){
+        float udistance = (float) trackingHolder.route.calculateDistance();
+        dis.setText(String.valueOf(Math.round(udistance *10) / 10.0));
+        duration.setText(toTimeForm((int) trackingHolder.route.getTotalTime()));
+        pace.setText(toTimeForm((int) (trackingHolder.route.calculatePace()*60)));
+        ArrayList<LatLng> tmp = trackingHolder.route.getListLatLng();
+        LatLng cur = tmp.get(tmp.size()-1);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15));
+        if( lastPos != null){
+            mMap.addPolyline(new PolylineOptions()
+                    .add(lastPos, cur)
+                    .width(10)
+                    .color(Color.GREEN)
+            );
+        }
+        lastPos = cur;
     }
 
     @Override
@@ -152,11 +176,19 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_map_json));
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-40, 90);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
     }
 
     private void askPermission() {
@@ -173,11 +205,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-
-
-
             }else {
-
 
                 Toast.makeText(TrackingActivity.this,"Please provide the required permission",Toast.LENGTH_SHORT).show();
 
