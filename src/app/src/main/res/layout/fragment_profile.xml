@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primary_dark"
     tools:context=".profile">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginVertical="10dp"
         android:gravity="center">
         <include
             layout="@layout/default_toolbar"/>
@@ -19,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_round_rectangle"
+            android:background="@color/primary"
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/email"
@@ -38,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:hint="vhdat20@apcs.fitus.hcmus.edu.vn"
+                android:textColorHint="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +50,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_round_rectangle"
+            android:background="@color/primary"
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/name"
@@ -66,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:hint="Vu Hoang Dat"
+                android:textColorHint="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,25 +80,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="10dp">
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginRight="5dp"
-                android:text="Male"
-                android:background="@drawable/background_round_rectangle" />
+                android:layout_weight="1"
+                android:background="@color/primary"
+                android:text="Female"
+                android:textColor="@color/white" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@color/primary"
                 android:text="Male"
-                android:background="@drawable/background_round_rectangle" />
+                android:textColor="@color/white" />
         </RadioGroup>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_round_rectangle"
+            android:background="@color/primary"
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/age"
@@ -107,21 +115,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/edit_age"
                 />
+
             <EditText
                 android:id="@+id/edit_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="18"
                 android:paddingLeft="10dp"
-                android:hint="Vu Hoang Dat"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/age"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/age" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_round_rectangle"
+            android:background="@color/primary"
             android:layout_margin="10dp">
             <TextView
                 android:id="@+id/loc"
@@ -134,16 +144,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/edit_loc"
                 />
+
             <EditText
                 android:id="@+id/edit_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="230 King Street, England"
                 android:paddingLeft="10dp"
-                android:hint="Vu Hoang Dat"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loc"
+                android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/profile_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONFIRM" />
     </LinearLayout>
 </ScrollView>
