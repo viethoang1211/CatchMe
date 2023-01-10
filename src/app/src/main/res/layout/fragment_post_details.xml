@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_dark"
-    tools:context=".activities.PostDetails">
-
+    tools:context=".postDetails">
+    <include
+        android:id="@+id/bar"
+        layout="@layout/default_toolbar"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="300dp"
@@ -119,6 +121,7 @@
         android:layout_height="wrap_content"
         android:text="RUNNING RECORD"
         android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/bar"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

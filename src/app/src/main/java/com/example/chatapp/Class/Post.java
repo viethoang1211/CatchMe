@@ -1,7 +1,8 @@
 package com.example.chatapp.Class;
 
+import java.io.Serializable;
 
-public class Post {
+public class Post implements Serializable {
     public String user_name;
     public Integer posting_time;
     public String description;

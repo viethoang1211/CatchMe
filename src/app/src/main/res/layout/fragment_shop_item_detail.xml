@@ -6,6 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_dark"
+    android:weightSum="2"
     tools:context=".shop_item_detail">
     <include
         android:id="@+id/bar"

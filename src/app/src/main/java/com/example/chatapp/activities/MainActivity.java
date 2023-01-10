@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(e->showToast("Unable to sign out"));
-
     }
 
 }
