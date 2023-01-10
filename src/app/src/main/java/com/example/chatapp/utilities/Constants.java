@@ -27,5 +27,8 @@ public class Constants {
     public static final String KEY_COLLECTION_LIKE= "like";
     public static final String KEY_POST_ID= "postID";
 
+    public static final String KEY_TRACK_COUNT = "trackCOUNT";
+    public static final String KEY_TRACK_OFF_LIST = "trackOffLst";
+    
 
 }

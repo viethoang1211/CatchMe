@@ -11,11 +11,6 @@
         android:label="fragment_challenge"
         tools:layout="@layout/fragment_challenge" />
     <fragment
-        android:id="@+id/chat"
-        android:name="com.example.chatapp.chat"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
-    <fragment
         android:id="@+id/home2"
         android:name="com.example.chatapp.home"
         android:label="fragment_home"
@@ -30,4 +25,25 @@
         android:name="com.example.chatapp.postDetails"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" /><action android:id="@+id/action_global_postDetails" app:destination="@id/postDetails"/>
+    <fragment
+        android:id="@+id/shop_item_detail"
+        android:name="com.example.chatapp.shop_item_detail"
+        android:label="fragment_shop_item_detail"
+        tools:layout="@layout/fragment_shop_item_detail" />
+    <action android:id="@+id/action_global_shop_item_detail" app:destination="@id/shop_item_detail" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.chatapp.activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/trackingActivity"
+        android:name="com.example.chatapp.activities.TrackingActivity"
+        android:label="activity_tracking"
+        tools:layout="@layout/activity_tracking" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.chatapp.profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

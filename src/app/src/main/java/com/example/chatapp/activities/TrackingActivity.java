@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,10 @@ import androidx.lifecycle.MediatorLiveData;
 
 import com.example.chatapp.Service.RecordBroadcast;
 import com.example.chatapp.Service.RecordService;
+import com.example.chatapp.sqlite.DBHelper;
+import com.example.chatapp.sqlite.TrackingDAO;
+import com.example.chatapp.utilities.Constants;
+import com.example.chatapp.utilities.PreferenceManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,7 +44,10 @@ import com.example.chatapp.databinding.ActivityTrackingBinding;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -48,9 +57,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     private Intent intent;
     private IntentFilter intentFilter;
     private RecordBroadcast broadcast;
-    private MediatorLiveData<Route> route = new MediatorLiveData<>();
-    private MediatorLiveData<String> uid = new MediatorLiveData<>();
-    private MediatorLiveData<Route> info = new MediatorLiveData<>();
+    private String uid;
 
     CountDownTimer countDownTimer;
     TrackingHolder trackingHolder;
@@ -59,6 +66,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     LatLng lastPos;
     FloatingActionButton btnStart;
     Button btnStop;
+
+    PreferenceManager preferenceManager;
 
     boolean isPause;
 
@@ -73,15 +82,18 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        uid.setValue("RANDOM");
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        uid = preferenceManager.getString(Constants.KEY_USER_ID);
 
         intent = new Intent(this, RecordService.class);
-        intent.putExtra("uid", uid.getValue());
+        intent.putExtra("uid", uid);
         intentFilter = new IntentFilter();
         intentFilter.addAction(getString(R.string.intent_action));
         broadcast = new RecordBroadcast();
 
         trackingHolder = TrackingHolder.getInstance();
+        trackingHolder.setUID(uid);
 
         dis = findViewById(R.id.user_tracking_dis);
         duration = findViewById(R.id.user_tracking_dur);
@@ -136,8 +148,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     void getGoogleMapImage(){
-        focusCamera();
-        mMap.moveCamera(CameraUpdateFactory.zoomBy((float) trackingHolder.route.bestZoom()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(trackingHolder.route.getCenterRoutePoint() ,(float) trackingHolder.route.bestZoom()));
         mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(@Nullable Bitmap bitmap) {
@@ -160,7 +171,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 mMap.addPolyline(new PolylineOptions()
                         .add(lastPos, cur)
                         .width(10)
-                        .color(Color.GREEN)
+                        .color(Color.WHITE)
                 );
             }
             lastPos = cur;
@@ -196,7 +207,38 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onStop() {
         unregisterReceiver(broadcast);
+        updateToSQL();
         super.onStop();
+    }
+
+    void updateToSQL(){
+        TrackingDAO trackingDAO = new TrackingDAO(getApplicationContext());
+        String id = preferenceManager.getString(Constants.KEY_TRACK_COUNT);
+        int cntID = 0;
+        if (id != null){
+            cntID = Integer.getInteger(id);
+        }
+        ++cntID;
+        id = String.valueOf(cntID);
+        preferenceManager.putString(Constants.KEY_TRACK_COUNT, id);
+        trackingDAO.insert(id, trackingHolder.route);
+        trackingHolder.newRun();
+        // Add to preference
+        Gson gson = new Gson();
+        String tmp = preferenceManager.getString(Constants.KEY_TRACK_OFF_LIST);
+        ArrayList<Integer> lst;
+        if (tmp == null){
+            lst = new ArrayList<>();
+        }else{
+            Type type = new TypeToken<ArrayList<Integer> >() {}.getType();
+
+            lst = gson.fromJson(tmp, type);
+        }
+        lst.add(cntID);
+
+        String inputString= gson.toJson(lst);
+        preferenceManager.putString(Constants.KEY_TRACK_OFF_LIST, inputString);
+        Toast.makeText(getApplicationContext(), "Save to SQLite", Toast.LENGTH_SHORT).show();
     }
 
     public void stopRecordActivity(View view) {

@@ -1,7 +1,5 @@
 package com.example.chatapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.Class.ChatMessage;
 import com.example.chatapp.Class.User;
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
         Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0, bytes.length);
         binding.imageProfile.setImageBitmap(bitmap);
-
     }
 
     private void getToken(){

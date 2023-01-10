@@ -46,6 +46,18 @@ public class TrackingHolder {// Singleton
         route.stop();
     }
 
+    public void setUID(String id){
+        Uid = id;
+        route.setuId(id);
+    }
+
+    public void newRun(){
+        isPause = true;
+        isStop = false;
+        route = new Route();
+        Uid = "";
+    }
+
 
 
     // Static method

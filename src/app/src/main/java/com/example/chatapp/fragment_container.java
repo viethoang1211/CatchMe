@@ -1,5 +1,16 @@
 package com.example.chatapp;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.util.Base64;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,14 +22,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
 
 import com.example.chatapp.activities.SignInActivity;
 import com.example.chatapp.utilities.Constants;
@@ -55,6 +58,8 @@ public class fragment_container extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
+        loadUserDetails();
+
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         navController = navHostFragment.getNavController();
 
@@ -63,7 +68,7 @@ public class fragment_container extends AppCompatActivity {
     }
     public void setup(Toolbar toolbar){
         appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.challenge,R.id.shop,R.id.home2,R.id.chat)
+                new AppBarConfiguration.Builder(R.id.challenge,R.id.shop,R.id.home2)
                         .setDrawerLayout(drawerLayout)
                         .build();
         NavigationUI.setupWithNavController(toolbar,navController,appBarConfiguration);
@@ -73,8 +78,7 @@ public class fragment_container extends AppCompatActivity {
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if(destination.getId() == R.id.shop
                         || destination.getId() == R.id.home2
-                        || destination.getId() == R.id.challenge
-                        || destination.getId() == R.id.chat) {
+                        || destination.getId() == R.id.challenge) {
                     toolbar.setNavigationIcon(R.drawable.menu);
                     bottomNavigationView.setVisibility(View.VISIBLE);
                 } else {
@@ -86,7 +90,6 @@ public class fragment_container extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         if(item.getItemId()==R.id.drawer4){
-                            Log.d("gay2","signout3333");
                             signOut();
                         }
                         return true;
@@ -98,6 +101,17 @@ public class fragment_container extends AppCompatActivity {
     private void showToast(String message){
         Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
     }
+
+    private void loadUserDetails(){
+        View headerView = navView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.name);
+        navUsername.setText(preferenceManager.getString(Constants.KEY_NAME));
+        byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
+        Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+        ImageView avatar = (ImageView) headerView.findViewById((R.id.image));
+        avatar.setImageBitmap(bitmap);
+    }
+
     private void signOut(){
         showToast("Signing out...");
         FirebaseFirestore database = FirebaseFirestore.getInstance();
