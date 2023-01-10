@@ -33,7 +33,7 @@ public class RecordService extends Service {
     private LocationCallback locationCallback;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Notification notification;
-    private Route route;
+    private RoutePoint route;
     private String uid;
 
     @Nullable
@@ -45,7 +45,6 @@ public class RecordService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        route = new Route();
         locationRequest = LocationRequest.create();
         locationCallback = new LocationCallback() {
             @Override
@@ -54,7 +53,7 @@ public class RecordService extends Service {
                 double lat = locationResult.getLastLocation().getLatitude();
                 double lng = locationResult.getLastLocation().getLongitude();
                 long time = Calendar.getInstance().getTimeInMillis();
-                route.add(new RoutePoint(lat, lng, time));
+                route = new RoutePoint(lat, lng, time);
 
                 Intent intent = new Intent();
                 intent.setAction(getString(R.string.intent_action));

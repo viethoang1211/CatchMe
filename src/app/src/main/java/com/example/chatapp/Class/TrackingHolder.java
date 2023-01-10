@@ -1,5 +1,7 @@
 package com.example.chatapp.Class;
 
+import javax.xml.parsers.FactoryConfigurationError;
+
 public class TrackingHolder {// Singleton
     // Static variable reference of single_instance
     // of type Singleton
@@ -8,6 +10,8 @@ public class TrackingHolder {// Singleton
     // Declaring a variable of type String
     public Route route;
     public String Uid;
+    public boolean isPause;
+    public boolean isStop;
 
     // Constructor
     // Here we will be creating private constructor
@@ -16,7 +20,32 @@ public class TrackingHolder {// Singleton
     {
         route = new Route();
         Uid = "";
+        isPause = true;
+        isStop = false;
     }
+
+    public void addRoutePoint(RoutePoint u){
+        if (isPause || isStop) return;
+        route.add(u);
+    }
+
+    public void Pause(){
+        if (isPause || isStop) return;;
+        isPause = true;
+        route.pause();
+    }
+
+    public void Continue(){
+        if (!isPause || isStop) return;
+        isPause = false;
+    }
+
+    public void Stop(){
+        if (isStop) return;
+        isStop = true;
+        route.stop();
+    }
+
 
 
     // Static method
