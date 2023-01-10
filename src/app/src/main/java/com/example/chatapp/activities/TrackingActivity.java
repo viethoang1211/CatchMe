@@ -1,6 +1,7 @@
 package com.example.chatapp.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -8,15 +9,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chatapp.Class.Route;
+import com.example.chatapp.Class.RoutePoint;
 import com.example.chatapp.Class.TrackingHolder;
 import com.example.chatapp.R;
 
@@ -33,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.example.chatapp.databinding.ActivityTrackingBinding;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -52,6 +57,10 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
     TextView dis, pace, duration;
     LatLng lastPos;
+    FloatingActionButton btnStart;
+    Button btnStop;
+
+    boolean isPause;
 
     private final static int REQUEST_CODE = 100;
     @Override
@@ -74,40 +83,13 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
         trackingHolder = TrackingHolder.getInstance();
 
-//        binding = ActivityTrackingBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-
         dis = findViewById(R.id.user_tracking_dis);
         duration = findViewById(R.id.user_tracking_dur);
         pace = findViewById(R.id.user_tracking_pace);
+        btnStart = findViewById(R.id.btnStart);
+        btnStop = findViewById(R.id.stopTracking);
 
-//        dis.setText(String.valueOf(broadcast.getRoute().getValue().calculateDistance()));
-//        dir.setText(String.valueOf(broadcast.getRoute().getValue().calculatePace()));
-//        pace.setText(String.valueOf(broadcast.getRoute().getValue().getTotalTime()));
-
-//        uid.addSource(broadcast.getUid(), newUid -> {
-//            this.uid.setValue(newUid);
-//        });
-//
-//        route.addSource(broadcast.getRoute(), newRoute -> {
-//            this.route.setValue(newRoute);
-//        });
-//
-//        info.addSource(broadcast.getRoute(), new Observer<Route>() {
-//            @Override
-//            public void onChanged(Route route) {
-////                binding.userTrackingDis.setText(String.valueOf(route.calculateDistance()));
-////                binding.userTrackingPace.setText(String.valueOf(route.calculatePace()));
-////                binding.userTrackingDur.setText(String.valueOf(route.getTotalTime()));
-//                dis.setText(String.valueOf(route.calculateDistance()));
-//                dir.setText(String.valueOf(route.calculatePace()));
-//                pace.setText(String.valueOf(route.getTotalTime()));
-//                ArrayList<LatLng> tmp = route.getListLatLng();
-//                LatLng cur = tmp.get(tmp.size()-1);
-//                mMap.addMarker(new MarkerOptions().position(cur).title("?"));
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
-//            }
-//        });
+        isPause = true;
 
         askPermission();
 
@@ -123,36 +105,85 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 countDownTimer.start();
             }
         }.start();
+
+        setOnClick();
     }
-    String toTimeForm(int u){ // second
-        String time = String.valueOf(u/3600);
-        u%=3600;
-        String min = String.valueOf(u/60);
-        u%=60;
-        String sec = String.valueOf(u);
-        while (min.length()<2) min = '0' + min;
-        while (sec.length()<2) sec = '0' + sec;
-        if (time.charAt(0) == '0')
-            return min + " : " + sec;
-        return  time + " : " + min + " : " + sec;
+
+    void setOnClick(){
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPause){
+                    isPause = false;
+                    startRunning();
+                    btnStop.setVisibility(View.GONE);
+                }else{
+                    isPause = true;
+                    btnStop.setVisibility(View.VISIBLE);
+                    pauseRunning();
+                }
+            }
+        });
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopRunning();
+                getGoogleMapImage();
+                finish();
+            }
+        });
+    }
+
+    void getGoogleMapImage(){
+        focusCamera();
+        mMap.moveCamera(CameraUpdateFactory.zoomBy((float) trackingHolder.route.bestZoom()));
+        mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
+            @Override
+            public void onSnapshotReady(@Nullable Bitmap bitmap) {
+                trackingHolder.route.setBitmap(bitmap);
+                startActivity(new Intent(getApplicationContext(), PostDetails.class));
+            }
+        });
     }
 
     void updateUI(){
-        float udistance = (float) trackingHolder.route.calculateDistance();
-        dis.setText(String.valueOf(Math.round(udistance *10) / 10.0));
-        duration.setText(toTimeForm((int) trackingHolder.route.getTotalTime()));
-        pace.setText(toTimeForm((int) (trackingHolder.route.calculatePace()*60)));
-        ArrayList<LatLng> tmp = trackingHolder.route.getListLatLng();
-        LatLng cur = tmp.get(tmp.size()-1);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 15));
-        if( lastPos != null){
-            mMap.addPolyline(new PolylineOptions()
-                    .add(lastPos, cur)
-                    .width(10)
-                    .color(Color.GREEN)
-            );
+
+        dis.setText(trackingHolder.route.getStringDistance());
+        duration.setText(trackingHolder.route.getStringDuration());
+        pace.setText(trackingHolder.route.getStringPace());
+
+        RoutePoint curRP = trackingHolder.route.getLastRoutePoint();
+        if (curRP != null){
+            LatLng cur = curRP.getLatLng();
+            if( lastPos != null){
+                mMap.addPolyline(new PolylineOptions()
+                        .add(lastPos, cur)
+                        .width(10)
+                        .color(Color.GREEN)
+                );
+            }
+            lastPos = cur;
         }
-        lastPos = cur;
+        focusCamera();
+    }
+
+    void startRunning(){
+        lastPos = null;
+        trackingHolder.Continue();
+    }
+
+    void pauseRunning(){
+        trackingHolder.Pause();
+    }
+
+    void stopRunning(){
+        trackingHolder.Stop();
+    }
+
+    void focusCamera(){
+        if (lastPos == null) return;
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(lastPos));
     }
 
     @Override
@@ -176,6 +207,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.

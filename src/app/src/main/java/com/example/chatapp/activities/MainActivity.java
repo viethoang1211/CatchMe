@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
                     finish();
                 })
                 .addOnFailureListener(e->showToast("Unable to sign out"));
-
     }
 
     @Override

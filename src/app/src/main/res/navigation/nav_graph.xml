@@ -25,4 +25,9 @@
         android:name="com.example.chatapp.shop"
         android:label="fragment_shop"
         tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/postDetails"
+        android:name="com.example.chatapp.postDetails"
+        android:label="fragment_post_details"
+        tools:layout="@layout/fragment_post_details" /><action android:id="@+id/action_global_postDetails" app:destination="@id/postDetails"/>
 </navigation>

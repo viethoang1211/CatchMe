@@ -29,7 +29,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 
 public class home extends Fragment {
-    ArrayList<Post> Posts= new ArrayList<>();
+
     private String[] tabs_title = new String[]{"Community", "Group", "Friend"};
     private HomeViewModel mViewModel;
     ViewPager2 pager;
@@ -52,19 +52,7 @@ public class home extends Fragment {
         tabs = view.findViewById(R.id.tab_layout);
         adapter= new pageAdapter(this);
         pager.setAdapter(adapter);
-        // text recycler view, sr Dat
-        Posts= new ArrayList<>();
-        Posts.add(new Post("Viet Hoang",123,"just up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        RecyclerView RecyclerView= view.findViewById(R.id.home_recyclerview);
-        HomeAdapter homeAdapter = new HomeAdapter(view.getContext(), Posts);
-        RecyclerView.setAdapter(homeAdapter);
-        RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        // nice it worked
+
         return view;
     }
 
