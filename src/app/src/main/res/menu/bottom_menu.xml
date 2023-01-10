@@ -9,11 +9,11 @@
         android:icon="@drawable/challenge_normal"
         android:title="Challenge"/>
     <item
-        android:id="@+id/bot3"
+        android:id="@+id/trackingActivity"
         android:icon="@drawable/tracking_normal"
         android:title="Tracking"/>
     <item
-        android:id="@+id/chat"
+        android:id="@+id/mainActivity"
         android:icon="@drawable/chat_normal"
         android:title="Chat"/>
     <item
