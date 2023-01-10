@@ -1,7 +1,6 @@
 package com.example.chatapp;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
