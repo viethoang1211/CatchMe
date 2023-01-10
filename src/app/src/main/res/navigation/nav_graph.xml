@@ -30,4 +30,9 @@
         android:name="com.example.chatapp.postDetails"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" /><action android:id="@+id/action_global_postDetails" app:destination="@id/postDetails"/>
+    <fragment
+        android:id="@+id/shop_item_detail"
+        android:name="com.example.chatapp.shop_item_detail"
+        android:label="fragment_shop_item_detail"
+        tools:layout="@layout/fragment_shop_item_detail" /><action android:id="@+id/action_global_shop_item_detail" app:destination="@id/shop_item_detail"/>
 </navigation>
