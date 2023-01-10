@@ -136,8 +136,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     void getGoogleMapImage(){
-        focusCamera();
-        mMap.moveCamera(CameraUpdateFactory.zoomBy((float) trackingHolder.route.bestZoom()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(trackingHolder.route.getCenterRoutePoint() ,(float) trackingHolder.route.bestZoom()));
         mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(@Nullable Bitmap bitmap) {
@@ -160,7 +159,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 mMap.addPolyline(new PolylineOptions()
                         .add(lastPos, cur)
                         .width(10)
-                        .color(Color.GREEN)
+                        .color(Color.WHITE)
                 );
             }
             lastPos = cur;
