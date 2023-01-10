@@ -9,13 +9,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.chatapp.Class.Route;
+import com.example.chatapp.Class.TrackingHolder;
 
 public class RecordBroadcast extends BroadcastReceiver {
     private static final String TAG = RecordBroadcast.class.getSimpleName();
     private MutableLiveData<Route> route = new MutableLiveData<>();
     private MutableLiveData<String> uid = new MutableLiveData<>();
+    TrackingHolder trackingHolder;
 
     public RecordBroadcast() {
+        trackingHolder = TrackingHolder.getInstance();
     }
 
     public LiveData<Route> getRoute() {
@@ -31,7 +34,10 @@ public class RecordBroadcast extends BroadcastReceiver {
         Route route = (Route) intent.getSerializableExtra("route");
         String uid = intent.getStringExtra("uid");
         Log.d(TAG, "Received broadcast " + uid);
+        Log.d(TAG, String.valueOf(route.calculateDistance()));
         this.route.setValue(route);
         this.uid.setValue(uid);
+
+        trackingHolder.route = route;
     }
 }
