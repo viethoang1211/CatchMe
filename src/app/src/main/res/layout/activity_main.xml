@@ -30,7 +30,7 @@
         android:padding="@dimen/_6sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logout"
+        app:srcCompat="@drawable/ic_back"
         android:background="@drawable/background_icon"
         app:tint="@color/white"/>
     
@@ -69,6 +69,41 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
+
+        <EditText
+            android:id="@+id/inputID"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:textAlignment="center"
+            android:background="@drawable/background_input"
+            android:hint="ID"
+
+            app:layout_constraintTop_toBottomOf="@id/recentchat"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:textColorHint="@color/black"
+            android:textSize="@dimen/_13ssp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSearch"
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:backgroundTint="@color/primary"
+            android:layout_height="@dimen/_30sdp"
+            android:hint="Search by ID"
+            android:textColorHint="@color/white"
+            android:layout_marginLeft="@dimen/_50sdp"
+            app:cornerRadius="@dimen/_8sdp"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintTop_toBottomOf="@+id/inputID"
+
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/conversationsRecyclerView"
             android:layout_width="match_parent"
@@ -78,7 +113,7 @@
             android:overScrollMode="never"
             android:padding="@dimen/_20sdp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/recentchat"
+            app:layout_constraintTop_toBottomOf="@id/buttonSearch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />

@@ -95,9 +95,11 @@ public class postDetails extends Fragment {
                                     tem.put(Constants.KEY_USER_ID,preferenceManager.getString(Constants.KEY_USER_ID));
                                     database.collection(Constants.KEY_COLLECTION_LIKE).add(tem);
 
+                                    binding.postDetailsLikeCnt.setText(Integer.parseInt(binding.postDetailsLikeCnt.getText().toString())+1);
                                 }
                                 else{
                                     database.collection(Constants.KEY_COLLECTION_LIKE).document(task.getResult().getDocuments().get(0).getId()).delete();
+                                    binding.postDetailsLikeCnt.setText(Integer.parseInt(binding.postDetailsLikeCnt.getText().toString())-1);
                                 }
                             }
                         }

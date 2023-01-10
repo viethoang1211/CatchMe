@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.Class.ChatMessage;
@@ -17,8 +18,11 @@ import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.listeners.ConversationListener;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -60,11 +64,41 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
 
     private void setListeners() {
 
-        binding.imageSignOut.setOnClickListener(v->signOut());
+        binding.imageSignOut.setOnClickListener(v->onBackPressed());
         binding.fabNewChat.setOnClickListener(v-> startActivity(
                 new Intent(getApplicationContext(),UsersActivity.class)
         ));
 
+        binding.buttonSearch.setOnClickListener(v->{
+            if (!binding.inputID.getText().toString().trim().isEmpty()){
+                database.collection(Constants.KEY_COLLECTION_USERS).document(binding.inputID.getText().toString().trim()).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        User user = new User();
+                                        user.image= document.getString("image");
+                                        user.id= document.getId();
+                                        user.name=document.getString("name");
+                                        user.email=document.getString("email");
+                                        Intent intent =new Intent(getApplicationContext(),ChatActivity.class);
+
+                                        intent.putExtra(Constants.KEY_USER,user);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else {
+                                        showToast("no such user id");
+                                    }
+                                }
+                            }
+                        });
+
+
+            }
+        });
     }
 
     private void loadUserDetails(){
