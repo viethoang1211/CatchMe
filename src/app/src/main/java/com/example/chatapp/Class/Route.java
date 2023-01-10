@@ -8,12 +8,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.PolyUtil;
 
 import java.io.Serializable;
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Route implements Serializable {
     private ArrayList<RoutePoint> route;
     private ArrayList<ArrayList<RoutePoint>> lstRoute;
+    private String uId;
+    private Bitmap bitmap;
 
     public Bitmap getBitmap() {
         return bitmap;
@@ -23,12 +26,11 @@ public class Route implements Serializable {
         this.bitmap = bitmap;
     }
 
-    Bitmap bitmap;
-
     public Route() {
         route = new ArrayList<>();
         lstRoute = new ArrayList<>();
         bitmap = null;
+        uId = "";
     }
 
     public void add(RoutePoint point) {
@@ -144,7 +146,7 @@ public class Route implements Serializable {
 
     public String getStringDistance(){
         double tmp = calculateDistance();
-        return String.valueOf(Math.round(tmp*10)/10);
+        return String.valueOf(Math.round(tmp*10)/10.0);
     }
 
 
@@ -183,7 +185,7 @@ public class Route implements Serializable {
             lngMax = Math.max(lngMax, u.getLng());
         }
         double tmp = Math.max(latMax-latMin, lngMax-lngMin);
-        return 15 - Math.log(tmp);
+        return 15 - Math.log(tmp*10);
     }
 
 }
