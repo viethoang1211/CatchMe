@@ -36,7 +36,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         final Post post = Posts.get(position);
         holder.name.setText(Posts.get(position).user_name);
-        holder.time.setText(Integer.toString(Posts.get(position).posting_time));
+        holder.time.setText((Posts.get(position).posting_time));
         holder.des.setText(Posts.get(position).description);
         holder.dur.setText(Integer.toString(Posts.get(position).duration));
         holder.pace.setText(Float.toString(Posts.get(position).pace));

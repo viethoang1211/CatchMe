@@ -33,7 +33,7 @@ public class shopAdapter extends RecyclerView.Adapter<shopAdapter.shopViewHolder
     @Override
     public void onBindViewHolder(@NonNull shopViewHolder holder, int position) {
         holder.name.setText(Posts.get(position).user_name);
-        holder.time.setText(Integer.toString(Posts.get(position).posting_time));
+        holder.time.setText(Posts.get(position).posting_time);
         holder.des.setText(Posts.get(position).description);
         holder.dur.setText(Integer.toString(Posts.get(position).duration));
         holder.pace.setText(Float.toString(Posts.get(position).pace));

@@ -181,7 +181,6 @@ public class ChatActivity extends AppCompatActivity {
             checkForConversationRemotely(preferenceManager.getString(Constants.KEY_USER_ID), receiverUser.id);
             checkForConversationRemotely(receiverUser.id,preferenceManager.getString(Constants.KEY_USER_ID));
 
-
         }
     }
 

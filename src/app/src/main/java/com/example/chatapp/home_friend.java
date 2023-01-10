@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 public class home_friend extends Fragment {
 
-    private HomeFriendViewModel mViewModel;
+
 
     public static home_friend newInstance() {
         return new home_friend();

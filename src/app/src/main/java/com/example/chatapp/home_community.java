@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class home_community extends Fragment {
     ArrayList<Post> Posts = new ArrayList<>();
-    private HomeCommunityViewModel mViewModel;
+
 
     public static home_community newInstance() {
         return new home_community();
@@ -35,12 +35,12 @@ public class home_community extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_community, container, false);
         Posts= new ArrayList<>();
-        Posts.add(new Post("Viet Hoang",123,"just up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
-        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
+//        Posts.add(new Post("Viet Hoang",123,"just up",123,55.05F,70.05F));
+//        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
+//        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
+//        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
+//        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
+//        Posts.add(new Post("Lac Viet",123,"just woke up",123,55.05F,70.05F));
         RecyclerView RecyclerView= view.findViewById(R.id.home_recyclerview);
         HomeAdapter homeAdapter = new HomeAdapter(Posts, new postListener() {
             @Override

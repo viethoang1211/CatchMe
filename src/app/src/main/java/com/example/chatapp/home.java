@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class home extends Fragment {
 
     private String[] tabs_title = new String[]{"Community", "Group", "Friend"};
-    private HomeViewModel mViewModel;
+
     ViewPager2 pager;
     TabLayout tabs;
     pageAdapter adapter;

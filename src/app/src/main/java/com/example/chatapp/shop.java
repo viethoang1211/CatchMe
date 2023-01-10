@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class shop extends Fragment {
 
-    private ShopViewModel mViewModel;
+
 
     public static shop newInstance() {
         return new shop();

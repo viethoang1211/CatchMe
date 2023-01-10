@@ -255,4 +255,28 @@
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/user_post_details_hr"
         app:layout_constraintTop_toTopOf="@+id/user_post_details_hr" />
+
+    <ImageView
+        android:id="@+id/hidePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_lock_idle_lock"
+        tools:layout_editor_absoluteX="369dp"
+        tools:layout_editor_absoluteY="102dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="@id/constraintLayout2"
+        android:layout_marginTop="@dimen/_50sdp"/>
+
+    <ImageView
+        android:id="@+id/deletePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_clear"
+        tools:layout_editor_absoluteX="366dp"
+        tools:layout_editor_absoluteY="81dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@id/hidePost"
+        android:layout_marginBottom="@dimen/_20sdp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

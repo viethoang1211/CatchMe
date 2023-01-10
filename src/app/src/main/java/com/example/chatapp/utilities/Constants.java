@@ -22,5 +22,10 @@ public class Constants {
     public static final String KEY_SENDER_IMAGE= "senderImage";
     public static final String KEY_RECEIVER_IMAGE= "receiverImage";
     public static final String KEY_LAST_MESSAGE= "lastMessage";
+    public static final String KEY_COLLECTION_POSTS= "posts";
+    public static final String KEY_VISIBILITY= "visibility";
+    public static final String KEY_COLLECTION_LIKE= "like";
+    public static final String KEY_POST_ID= "postID";
+
 
 }
