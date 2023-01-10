@@ -12,14 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.Class.ChatMessage;
+import com.example.chatapp.Class.Route;
 import com.example.chatapp.Class.User;
 import com.example.chatapp.adapters.RecentConversationsAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
 import com.example.chatapp.listeners.ConversationListener;
+import com.example.chatapp.sqlite.DBHelper;
+import com.example.chatapp.sqlite.TrackingDAO;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+<<<<<<< Updated upstream
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+=======
+import com.google.common.reflect.TypeToken;
+>>>>>>> Stashed changes
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,7 +35,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -202,4 +211,5 @@ public class MainActivity extends AppCompatActivity implements ConversationListe
         intent.putExtra(Constants.KEY_USER,user);
         startActivity(intent);
     }
+
 }

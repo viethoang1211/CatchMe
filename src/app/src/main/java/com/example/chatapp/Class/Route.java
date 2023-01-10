@@ -2,28 +2,52 @@ package com.example.chatapp.Class;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 
+import com.example.chatapp.utilities.Constants;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.maps.android.PolyUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Route implements Serializable {
-    private ArrayList<RoutePoint> route;
-    private ArrayList<ArrayList<RoutePoint>> lstRoute;
-    private String uId;
-    private Bitmap bitmap;
+    public ArrayList<RoutePoint> route;
+    public ArrayList<ArrayList<RoutePoint>> lstRoute;
+    public String uId;
+    public String bitmap;
+    public Date startDate;
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    private String encodeImage(Bitmap bitmap){
+        int previewWidth= 150;
+        int previewHeight= bitmap.getHeight()* previewWidth/ bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap,previewWidth,previewHeight,false);
+        ByteArrayOutputStream byteArrayOutputStream= new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50 ,byteArrayOutputStream);
+        byte[] bytes =byteArrayOutputStream.toByteArray();
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    private Bitmap decodeImage(String u){
+        byte[] bytes = android.util.Base64.decode(u, android.util.Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+    }
+
+    public Bitmap getBitmap(){
+        return decodeImage(bitmap);
     }
 
     public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        this.bitmap = encodeImage(bitmap);
     }
 
     public Route() {
@@ -31,6 +55,7 @@ public class Route implements Serializable {
         lstRoute = new ArrayList<>();
         bitmap = null;
         uId = "";
+        startDate = new Date();
     }
 
     public void add(RoutePoint point) {
@@ -89,16 +114,17 @@ public class Route implements Serializable {
         return time / 1000;
     }
 
-    public String encodeRoute() {
-        return PolyUtil.encode(getListLatLng());
+    public String encodeLstRoute(){
+        Gson gson = new Gson();
+        return gson.toJson(lstRoute);
     }
 
-    public ArrayList<LatLng> getListLatLng() {
-        ArrayList<LatLng> res = new ArrayList<>();
-        for (RoutePoint i : route) {
-            res.add(i.getLatLng());
-        }
-        return res;
+    public ArrayList<ArrayList<RoutePoint>> decodeLstRoute(String u){
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<ArrayList<RoutePoint>>>() {
+        }.getType();
+
+        return  gson.fromJson(u, type);
     }
 
     public HashMap<String, Object> toHashMap() {
@@ -106,7 +132,10 @@ public class Route implements Serializable {
         map.put("distance", calculateDistance());
         map.put("pace", calculatePace());
         map.put("total_time", getTotalTime());
-        map.put("route", encodeRoute());
+        map.put("bitmap", bitmap);
+        map.put("uId", uId);
+        map.put("startDate", startDate);
+        map.put("route", encodeLstRoute());
         return map;
     }
 
@@ -194,5 +223,13 @@ public class Route implements Serializable {
 
     public void setuId(String uId) {
         this.uId = uId;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

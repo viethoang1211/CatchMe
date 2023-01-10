@@ -25,7 +25,7 @@ public class TrackingDAO {
     }
 
     public Route get(String Id){
-        String sql = "SELECT * FROM Id = " + Id;
+        String sql = "SELECT * FROM tracking WHERE Id = " + Id;
         Route route = null;
         Cursor cursor = db.rawQuery(sql, null);
         Gson gson = new Gson();

@@ -84,7 +84,7 @@ public class RecordService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        uid = intent.getStringExtra("uid");
+        //uid = intent.getStringExtra("uid");
         Log.d(TAG, "Start tracking");
         requestLocationUpdate();
         startForeground(12345, notification);

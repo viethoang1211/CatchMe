@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -12,6 +15,9 @@ import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -24,6 +30,7 @@ import android.widget.Toast;
 import com.example.chatapp.Class.Route;
 import com.example.chatapp.Class.RoutePoint;
 import com.example.chatapp.Class.TrackingHolder;
+import com.example.chatapp.Class.UpdateTrackingToOnline;
 import com.example.chatapp.R;
 
 import androidx.fragment.app.FragmentActivity;
@@ -47,8 +54,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TrackingActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final String TAG = RecordService.class.getSimpleName();
@@ -62,19 +71,24 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     CountDownTimer countDownTimer;
     TrackingHolder trackingHolder;
 
-    TextView dis, pace, duration;
+    TextView dis, pace, duration, street;
     LatLng lastPos;
     FloatingActionButton btnStart;
     Button btnStop;
 
     PreferenceManager preferenceManager;
+    UpdateTrackingToOnline updateTrackingToOnline;
 
-    boolean isPause;
+    boolean isPause, isAlert;
 
     private final static int REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        updateTrackingToOnline = new UpdateTrackingToOnline(getApplicationContext());
+
         setContentView(R.layout.activity_tracking);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -85,6 +99,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         uid = preferenceManager.getString(Constants.KEY_USER_ID);
+        if (uid == null)
+            uid = "RANDOM";
 
         intent = new Intent(this, RecordService.class);
         intent.putExtra("uid", uid);
@@ -100,8 +116,10 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         pace = findViewById(R.id.user_tracking_pace);
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.stopTracking);
+        street = findViewById(R.id.user_tracking_pos);
 
         isPause = true;
+        isAlert = false;
 
         askPermission();
 
@@ -114,11 +132,47 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onFinish() {
                 updateUI();
+
+                if (!manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+                    if (!isAlert) {
+                        isAlert = true;
+                        trackingHolder.Pause();
+                        buildAlertMessageNoGps();
+                    }
+                } else {
+                    isAlert = false;
+                    trackingHolder.Continue();
+                }
                 countDownTimer.start();
             }
         }.start();
 
+
         setOnClick();
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                        stopRunning();
+                        getGoogleMapImage();
+                        finish();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     void setOnClick(){
@@ -153,7 +207,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onSnapshotReady(@Nullable Bitmap bitmap) {
                 trackingHolder.route.setBitmap(bitmap);
-                startActivity(new Intent(getApplicationContext(), PostDetails.class));
+                updateToSQL();
+                updateTrackingToOnline.updateTrackingHistory();
             }
         });
     }
@@ -175,6 +230,16 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                 );
             }
             lastPos = cur;
+        }
+        if (lastPos != null){
+            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+            ArrayList<Address> addresses = null;
+            try {
+                addresses = (ArrayList<Address>) geocoder.getFromLocation(lastPos.latitude, lastPos.longitude, 1);
+                street.setText(addresses.get(0).getThoroughfare());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         focusCamera();
     }
@@ -207,16 +272,18 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onStop() {
         unregisterReceiver(broadcast);
-        updateToSQL();
         super.onStop();
     }
 
     void updateToSQL(){
+        if (trackingHolder.route == null) return;
+        if (trackingHolder.route.calculateDistance() <= 0.1) return;
+        if (trackingHolder.route.bitmap == null) return;
         TrackingDAO trackingDAO = new TrackingDAO(getApplicationContext());
         String id = preferenceManager.getString(Constants.KEY_TRACK_COUNT);
         int cntID = 0;
         if (id != null){
-            cntID = Integer.getInteger(id);
+            cntID = Integer.parseInt(id);
         }
         ++cntID;
         id = String.valueOf(cntID);
@@ -249,7 +316,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(13));
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.

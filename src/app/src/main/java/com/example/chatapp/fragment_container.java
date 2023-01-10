@@ -23,6 +23,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.chatapp.Class.UpdateTrackingToOnline;
 import com.example.chatapp.activities.SignInActivity;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
@@ -43,7 +44,7 @@ public class fragment_container extends AppCompatActivity {
     NavigationView navView;
     BottomNavigationView bottomNavigationView;
     private PreferenceManager preferenceManager;
-
+    UpdateTrackingToOnline updateTrackingToOnline;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,4 +135,13 @@ public class fragment_container extends AppCompatActivity {
                 || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

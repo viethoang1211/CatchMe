@@ -23,8 +23,8 @@ public class RecordBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         RoutePoint route = (RoutePoint) intent.getSerializableExtra("route");
-        String uid = intent.getStringExtra("uid");
-        Log.d(TAG, "Received broadcast " + uid);
+        //String uid = intent.getStringExtra("uid");
+        //Log.d(TAG, "Received broadcast " + uid);
         Log.d(TAG, String.valueOf(trackingHolder.route.calculateDistance()));
 
         trackingHolder.addRoutePoint(route);
