@@ -12,13 +12,24 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.example.chatapp.activities.SignInActivity;
+import com.example.chatapp.utilities.Constants;
+import com.example.chatapp.utilities.PreferenceManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 public class fragment_container extends AppCompatActivity {
 
@@ -28,6 +39,7 @@ public class fragment_container extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navView;
     BottomNavigationView bottomNavigationView;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,8 @@ public class fragment_container extends AppCompatActivity {
 
 //        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
 //        getSupportActionBar().hide(); // hide the title bar
+
+        preferenceManager= new PreferenceManager(getApplicationContext());
 
         setContentView(R.layout.activity_fragment_container);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -67,8 +81,37 @@ public class fragment_container extends AppCompatActivity {
                     bottomNavigationView.setVisibility(View.GONE);
                 }
                 toolbar.setTitle("");
+                NavigationView navi = findViewById(R.id.nav_view);
+                navi.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        if(item.getItemId()==R.id.drawer4){
+                            Log.d("gay2","signout3333");
+                            signOut();
+                        }
+                        return true;
+                    }
+                });
             }
         });
+    }
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
+    }
+    private void signOut(){
+        showToast("Signing out...");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference documentReference= database.collection(Constants.KEY_COLLECTION_USERS)
+                .document(preferenceManager.getString(Constants.KEY_USER_ID));
+        HashMap<String,Object> updates= new HashMap<>();
+        updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+        documentReference.update(updates)
+                .addOnSuccessListener(unused -> {
+                    preferenceManager.clear();
+                    startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                    finish();
+                })
+                .addOnFailureListener(e->showToast("Unable to sign out"));
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
