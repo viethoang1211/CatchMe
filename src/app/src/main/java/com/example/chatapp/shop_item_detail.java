@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.chatapp.Class.shopItem;
 
+public class shop_item_detail extends Fragment {
     public static shop_item_detail newInstance() {
         return new shop_item_detail();
     }
