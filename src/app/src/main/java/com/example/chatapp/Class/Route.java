@@ -188,4 +188,11 @@ public class Route implements Serializable {
         return 15 - Math.log(tmp*10);
     }
 
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
 }
