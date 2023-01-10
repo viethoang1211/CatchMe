@@ -18,12 +18,11 @@ public class shopItem implements Serializable {
         this.isPhysical = isPhysical;
     }
 
-    public shopItem(String name, Integer price, Bitmap image, String description, Boolean isPhysical) {
+    public shopItem(String name, Integer price, Bitmap image, String description) {
         this.name = name;
         this.price = price;
         this.image = image;
         this.description = description;
-        this.isPhysical = isPhysical;
     }
 
     public Integer getPrice() {

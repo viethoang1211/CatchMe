@@ -15,7 +15,6 @@
         android:id="@+id/item_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/test_image"
         android:layout_weight="1"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
