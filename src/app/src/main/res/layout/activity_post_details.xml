@@ -210,16 +210,14 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/post_details_hr"
         app:layout_constraintTop_toBottomOf="@+id/post_details_hr" />
-
     <ImageView
         android:id="@+id/post_details_map"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/test_image" />
-
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/post_details_kcal"
         style="@style/white_medium"
