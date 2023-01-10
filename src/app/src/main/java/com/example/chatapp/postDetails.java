@@ -58,7 +58,7 @@ public class postDetails extends Fragment {
         title.setText("Post");
         TextView test = view.findViewById(R.id.post_details_dur);
         Post post = (Post) getArguments().getSerializable("testing");
-        test.setText(post.getUser_name());
+        test.setText(post.user_name);
 
         return view;
     }
