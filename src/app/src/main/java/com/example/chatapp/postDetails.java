@@ -1,24 +1,19 @@
 package com.example.chatapp;
 
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import com.example.chatapp.Class.Post;
 
 public class postDetails extends Fragment {
-
-    private PostDetailsViewModel mViewModel;
 
     public static postDetails newInstance() {
         return new postDetails();
@@ -36,7 +31,7 @@ public class postDetails extends Fragment {
         TextView test = view.findViewById(R.id.post_details_dur);
         Post post = (Post) getArguments().getSerializable("testing");
         test.setText(post.getUser_name());
-        Log.d("gay",post.getUser_name());
+
         return view;
     }
 

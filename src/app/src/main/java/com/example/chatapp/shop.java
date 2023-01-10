@@ -28,8 +28,6 @@ public class shop extends Fragment {
     shopAdapter shopAdap;
     MaterialButton physical,digital;
 
-    private ShopViewModel mViewModel;
-
     public static shop newInstance() {
         return new shop();
     }
@@ -82,7 +80,6 @@ public class shop extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_global_shop_item_detail,bundle);
             }
         });
-        Log.d("tag","phy");
         RecyclerView RecyclerView= view.findViewById(R.id.recycler);
         RecyclerView.setAdapter(shopAdap);
         RecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

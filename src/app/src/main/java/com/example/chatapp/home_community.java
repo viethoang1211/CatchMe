@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 public class home_community extends Fragment {
     ArrayList<Post> Posts = new ArrayList<>();
-    private HomeCommunityViewModel mViewModel;
-
     public static home_community newInstance() {
         return new home_community();
     }

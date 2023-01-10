@@ -1,7 +1,6 @@
 package com.example.chatapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import com.example.chatapp.Class.shopItem;
 
 public class shop_item_detail extends Fragment {
-
-    private ShopItemDetailViewModel mViewModel;
 
     public static shop_item_detail newInstance() {
         return new shop_item_detail();
@@ -34,7 +31,6 @@ public class shop_item_detail extends Fragment {
         TextView test = view.findViewById(R.id.item_name);
         shopItem item = (shopItem) getArguments().getSerializable("testingShop");
         test.setText(item.getName());
-        Log.d("gay",item.getName());
 
         return view;
     }

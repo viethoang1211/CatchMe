@@ -1,21 +1,17 @@
 package com.example.chatapp;
 
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class challenge extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
-    private ChallengeViewModel mViewModel;
+public class challenge extends Fragment {
 
     public static challenge newInstance() {
         return new challenge();

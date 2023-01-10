@@ -1,20 +1,15 @@
 package com.example.chatapp;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 public class home_friend extends Fragment {
-
-    private HomeFriendViewModel mViewModel;
 
     public static home_friend newInstance() {
         return new home_friend();
