@@ -21,12 +21,20 @@ import com.example.chatapp.sqlite.DBHelper;
 import com.example.chatapp.sqlite.TrackingDAO;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
+<<<<<<< Updated upstream
 //<<<<<<< Updated upstream
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 //=======
 import com.google.common.reflect.TypeToken;
 //>>>>>>> Stashed changes
+=======
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import com.google.common.reflect.TypeToken;
+>>>>>>> Stashed changes
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

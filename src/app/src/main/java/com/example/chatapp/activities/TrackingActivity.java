@@ -109,6 +109,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         broadcast = new RecordBroadcast();
 
         trackingHolder = TrackingHolder.getInstance();
+        trackingHolder.newRun();
         trackingHolder.setUID(uid);
 
         dis = findViewById(R.id.user_tracking_dis);
@@ -141,7 +142,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                     }
                 } else {
                     isAlert = false;
-                    trackingHolder.Continue();
+                    if (!isPause)
+                        trackingHolder.Continue();
                 }
                 countDownTimer.start();
             }
@@ -260,6 +262,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     void focusCamera(){
         if (lastPos == null) return;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lastPos));
+
     }
 
     @Override

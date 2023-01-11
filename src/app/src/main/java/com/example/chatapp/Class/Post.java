@@ -11,10 +11,12 @@ public class Post implements Serializable {
     public Date dateObject;
     public String posting_time;
     public String description;
-    public Integer duration;
-    public Float pace;
-    public Float distance;
+    public Long duration;
+    public Double pace;
+    public Double distance;
     public int visibility;
+    public String bitmap;
+    public String avatar;
     // 0 is hidden, 1 is visible
 
 

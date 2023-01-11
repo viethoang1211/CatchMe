@@ -1,9 +1,13 @@
 package com.example.chatapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +28,22 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.HashMap;
 
 public class postDetails extends Fragment {
 
     private FragmentPostDetailsBinding binding;
-    private Post thisPost;
+    private Post thisPost, post;
     private FirebaseFirestore database;
     private PreferenceManager preferenceManager;
     private Boolean valid = false;
     private Boolean isLiked= false;
+    CountDownTimer countDownTimer;
+
+    TextView userPostDetailsDur, userPostDetailsDis, userPostDetailsPace;
+    ImageView postDetailsMap;
 
 
     public static postDetails newInstance() {
@@ -46,19 +56,41 @@ public class postDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post_details, container, false);
         preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
         database=FirebaseFirestore.getInstance();
-        validUser();
+        userPostDetailsDur = view.findViewById(R.id.user_post_details_dur);
+        userPostDetailsDis = view.findViewById(R.id.user_post_details_dis);
+        userPostDetailsPace = view.findViewById(R.id.user_post_details_pace);
+        postDetailsMap = view.findViewById(R.id.post_details_map);
+//        validUser();
 
-        setListeners();
+//        setListeners();
 
-
+        thisPost = null;
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((fragment_container)getActivity()).setup(toolbar);
         TextView title  = view.findViewById(R.id.title);
         title.setText("Post");
         TextView test = view.findViewById(R.id.post_details_dur);
-        Post post = (Post) getArguments().getSerializable("testing");
-        test.setText(post.user_name);
+        post = (Post) getArguments().getSerializable("testing");
+        thisPost = post;
+        countDownTimer = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                if (thisPost == null){
+                    thisPost = post;
+                    countDownTimer.start();
+                    return;
+                }
+                setPostInfo();
+            }
+        }.start();
+
+//        test.setText(post.user_name);
 
         return view;
     }
@@ -148,6 +180,30 @@ public class postDetails extends Fragment {
         );
 
 
+    }
+
+    private void setPostInfo(){
+        userPostDetailsDur.setText(toTimeForm(Math.toIntExact(post.duration)));
+        userPostDetailsDis.setText(String.valueOf(Math.round(post.distance*10)/10.0));
+        userPostDetailsPace.setText(String.valueOf(Math.round(post.pace*10)/10.0));
+        postDetailsMap.setImageBitmap(decodeImage(post.bitmap));
+    }
+    private Bitmap decodeImage(String u){
+        byte[] bytes = android.util.Base64.decode(u, android.util.Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes,0, bytes.length);
+    }
+
+    String toTimeForm(int u){ // second
+        String time = String.valueOf(u/3600);
+        u%=3600;
+        String min = String.valueOf(u/60);
+        u%=60;
+        String sec = String.valueOf(u);
+        while (min.length()<2) min = '0' + min;
+        while (sec.length()<2) sec = '0' + sec;
+        if (time.charAt(0) == '0')
+            return min + " : " + sec;
+        return  time + " : " + min + " : " + sec;
     }
 
     private void showToast(String message) {

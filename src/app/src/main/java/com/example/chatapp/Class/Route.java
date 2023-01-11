@@ -5,16 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 
-import com.example.chatapp.utilities.Constants;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.google.maps.android.PolyUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -84,6 +81,7 @@ public class Route implements Serializable {
     }
 
     private double calculateDistance(ArrayList<RoutePoint> tmpRoute) {
+        if (tmpRoute == null) return  0;
         if (tmpRoute.isEmpty()) return 0;
         RoutePoint cur = tmpRoute.get(0);
         float[] res = new float[5];
@@ -108,6 +106,7 @@ public class Route implements Serializable {
     }
 
     private long getTotalTime(ArrayList<RoutePoint> tmpRoute) {
+        if (tmpRoute == null) return  0;
         long time = 0;
         if (tmpRoute.size() <= 1) return 0;
         time = tmpRoute.get(tmpRoute.size() - 1).getTime() - tmpRoute.get(0).getTime();
@@ -136,6 +135,7 @@ public class Route implements Serializable {
         map.put("uId", uId);
         map.put("startDate", startDate);
         map.put("route", encodeLstRoute());
+        map.put("visibility", 1);
         return map;
     }
 
@@ -151,8 +151,8 @@ public class Route implements Serializable {
     }
 
     public RoutePoint getLastRoutePoint(){
-        if (route.isEmpty()){
-            if (lstRoute.isEmpty()){
+        if (route == null || route.isEmpty()){
+            if (lstRoute == null || lstRoute.isEmpty()){
                 return null;
             }
             return getLastRoutePoint(lstRoute.get(lstRoute.size()-1));
@@ -195,11 +195,21 @@ public class Route implements Serializable {
     public LatLng getCenterRoutePoint(){
         double latMin = 100000, latMax = -100000;
         double lngMin = 100000, lngMax = -100000;
+        if (route != null)
         for (RoutePoint u: route) {
             latMin = Math.min(latMin, u.getLat());
             latMax = Math.max(latMax, u.getLat());
             lngMin = Math.min(lngMin, u.getLng());
             lngMax = Math.max(lngMax, u.getLng());
+        }
+        for (ArrayList<RoutePoint> v: lstRoute){
+            for (RoutePoint u: v){
+                latMin = Math.min(latMin, u.getLat());
+                latMax = Math.max(latMax, u.getLat());
+                lngMin = Math.min(lngMin, u.getLng());
+                lngMax = Math.max(lngMax, u.getLng());
+
+            }
         }
         return new LatLng((latMin + latMax)/2, (lngMin + lngMax)/2);
     }
@@ -207,14 +217,24 @@ public class Route implements Serializable {
     public double bestZoom(){
         double latMin = 100000, latMax = -100000;
         double lngMin = 100000, lngMax = -100000;
-        for (RoutePoint u: route) {
-            latMin = Math.min(latMin, u.getLat());
-            latMax = Math.max(latMax, u.getLat());
-            lngMin = Math.min(lngMin, u.getLng());
-            lngMax = Math.max(lngMax, u.getLng());
+        if (route != null)
+            for (RoutePoint u: route) {
+                latMin = Math.min(latMin, u.getLat());
+                latMax = Math.max(latMax, u.getLat());
+                lngMin = Math.min(lngMin, u.getLng());
+                lngMax = Math.max(lngMax, u.getLng());
+            }
+        for (ArrayList<RoutePoint> v: lstRoute){
+            for (RoutePoint u: v){
+                latMin = Math.min(latMin, u.getLat());
+                latMax = Math.max(latMax, u.getLat());
+                lngMin = Math.min(lngMin, u.getLng());
+                lngMax = Math.max(lngMax, u.getLng());
+
+            }
         }
         double tmp = Math.max(latMax-latMin, lngMax-lngMin);
-        return 15 - Math.log(tmp*10);
+        return 10 - Math.log(tmp);
     }
 
     public String getuId() {

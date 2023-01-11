@@ -30,7 +30,7 @@ public class TrackingHolder {// Singleton
     }
 
     public void Pause(){
-        if (isPause || isStop) return;;
+        if (isPause || isStop) return;
         isPause = true;
         route.pause();
     }
