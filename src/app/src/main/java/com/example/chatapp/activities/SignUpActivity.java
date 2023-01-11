@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.chatapp.databinding.ActivitySignUpBinding;
+import com.example.chatapp.fragment_container;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -71,15 +72,23 @@ import java.util.HashMap;
         user.put(Constants.KEY_EMAIL, binding.inputEmail.getText().toString());
         user.put(Constants.KEY_PASSWORD,binding.inputPassword.getText().toString());
         user.put(Constants.KEY_IMAGE, encodedImage);
+        user.put("ccoin","10000");
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
                     loading(false);
+                    preferenceManager.putString("ccoin","10000");
+//                    HashMap<String,Object> coin= new HashMap<>();
+//                    coin.put(Constants.KEY_USER_ID,documentReference.getId());
+//                    coin.put("ccoin","10000");
+//
+//                    database.collection(Constants.KEY_COLLECTION_BUDGET).add(coin);
+
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                     preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
                     preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE,encodedImage);
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), fragment_container.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 })

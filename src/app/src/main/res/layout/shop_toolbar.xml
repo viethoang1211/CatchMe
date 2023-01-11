@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:paddingEnd="@dimen/_20sdp"
             android:text="100000"
-            android:drawableStart="@drawable/catchcoin"
             android:textSize="16sp"
             style="@style/white_bold"
             android:drawablePadding="10dp"/>

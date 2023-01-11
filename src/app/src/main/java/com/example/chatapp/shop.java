@@ -61,6 +61,9 @@ public class shop extends Fragment {
         ((fragment_container)getActivity()).setup(toolbar);
         TextView title  = view.findViewById(R.id.title);
         title.setText("Shop");
+        TextView coin = view.findViewById(R.id.coin);
+        coin.setText(preferenceManager.getString("ccoin"));
+
 
         addItem();
 
