@@ -93,7 +93,7 @@ public class fragment_container extends AppCompatActivity {
                         if(item.getItemId()==R.id.drawer4){
                             signOut();
                         }
-                        return true;
+                        return onOptionsItemSelected(item);
                     }
                 });
             }
