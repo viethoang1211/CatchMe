@@ -76,6 +76,8 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     FloatingActionButton btnStart;
     Button btnStop;
 
+    boolean isFirstStart;
+
     PreferenceManager preferenceManager;
     UpdateTrackingToOnline updateTrackingToOnline;
 
@@ -85,6 +87,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isFirstStart = true;
 
         final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
         updateTrackingToOnline = new UpdateTrackingToOnline(getApplicationContext());
@@ -182,6 +185,10 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isFirstStart) {
+                    showToast("Start record");
+                    isFirstStart = false;
+                }
                 if (isPause){
                     isPause = false;
                     startRunning();
@@ -199,6 +206,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showToast("Stop Record");
                 stopRunning();
                 getGoogleMapImage();
                 finish();
@@ -363,5 +371,9 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
     }
 }
