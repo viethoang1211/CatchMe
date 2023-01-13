@@ -136,6 +136,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
                 if (!manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
                     if (!isAlert) {
+                        Toast.makeText(getApplicationContext(),"GPS disable", Toast.LENGTH_SHORT).show();
                         isAlert = true;
                         trackingHolder.Pause();
                         buildAlertMessageNoGps();
@@ -185,10 +186,12 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
                     isPause = false;
                     startRunning();
                     btnStop.setVisibility(View.GONE);
+                    btnStart.setImageDrawable(getDrawable(R.drawable.pause));
                 }else{
                     isPause = true;
                     btnStop.setVisibility(View.VISIBLE);
                     pauseRunning();
+                    btnStart.setImageDrawable(getDrawable(R.drawable.play));
                 }
             }
         });
