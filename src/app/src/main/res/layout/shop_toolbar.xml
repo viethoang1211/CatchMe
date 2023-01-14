@@ -30,6 +30,7 @@
             android:text="100000"
             android:textSize="16sp"
             style="@style/white_bold"
+            android:drawableLeft="@drawable/catchcoin"
             android:drawablePadding="10dp"/>
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

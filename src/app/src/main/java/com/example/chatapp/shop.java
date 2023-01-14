@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +63,6 @@ public class shop extends Fragment {
         TextView coin = view.findViewById(R.id.coin);
         coin.setText(preferenceManager.getString("ccoin"));
 
-
         addItem();
 
         physical = view.findViewById(R.id.physical);
@@ -103,9 +101,6 @@ public class shop extends Fragment {
             @Override
             public void onClickShopItem(shopItem item) {
                 Bundle bundle = new Bundle();
-                if(item.getImage()!=null){
-                    Log.d("hey","gagyagay");
-                }
                 bundle.putSerializable("testingShop",item);
                 Navigation.findNavController(view).navigate(R.id.action_global_shop_item_detail,bundle);
             }

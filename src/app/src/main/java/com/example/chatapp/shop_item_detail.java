@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import com.example.chatapp.Class.shopItem;
 import com.example.chatapp.utilities.Constants;
 import com.example.chatapp.utilities.PreferenceManager;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class shop_item_detail extends Fragment {
@@ -89,7 +88,6 @@ public class shop_item_detail extends Fragment {
                 preferenceManager.putString("ccoin",String.valueOf(new_money));
 
                 database.collection(Constants.KEY_COLLECTION_USERS).document(preferenceManager.getString(Constants.KEY_USER_ID)).update("ccoin",String.valueOf(new_money));
-
             }
             else{
                 showToast("not enough money");
